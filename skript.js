@@ -2,6 +2,7 @@ import {} from "https://unpkg.com/@workadventure/scripting-api-extra";
 
 var currentPopup = undefined;
 var isCoWebSiteOpened = false;
+var currentWebsite = undefined;
 
 function closePopUp() {
   if (currentPopup !== undefined) {
