@@ -20,6 +20,10 @@ var urlFeedback =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=nC2noeZJbU-a9lqvoRg7_SoZREurD2tJrJwSfyf3bX5UNEczWlNIRkJDNjNUUjZKODUyVE9aNjQ0Uy4u";
 var urlDBPlanet =
   "https://db-planet.deutschebahn.com/pages/telefonie/apps/content/workadventure";
+var urlDBPlanetMaps = 
+  "https://db-planet.deutschebahn.com/pages/telefonie/apps/content/maps";
+var urlTestMap = 
+  "https://play.workadventu.re/@/db-systel/basic/bahnhof_test";
 
 WA.room.onEnterZone(zoneNeedHelp, () => {
   currentPopup = WA.ui.openPopup("needHelpPopup", "Tutorial\nansehen?", [
@@ -121,19 +125,21 @@ WA.room.onLeaveZone("infoSaule_zone", () => {
 WA.room.onEnterZone("portal_program", () => {
   currentPopup = WA.ui.openPopup(
     "popUpPortal",
-    "Auch im Arbeitsalltag sind unsere Umgebung als virtuelles Büro nutzbar!\n\nSo bringen wir Teamgefühl, Austausch und spontane Gespräche zur Abstimmung geht aber verloren.\n Wir ändern das und bringen das Bürofeeling ins Homeoffice",
+    "Du willst wissen was mit WorkAdventure alles möglich ist?\nBesuche unsere Testumgebung, in der verschiedene Funktionen eingebaut und viele Umgebungen miteinander verknüpft sind! Beispiele für bestehende Welten gibt es auf DB Planet, beim Design sind keine Grenzen gesetzt und alles ist möglich!",
     [
       {
-        label: "OK",
+        label: "Zur Testumgebung",
         callback: (popup) => {
+          WA.nav.openTab(urlTestMap);
+          isCoWebSiteOpened = true;
           closePopUp();
         },
       },
       {
-        label: "Mehr",
+        label: "DB Planet",
         className: "primary",
         callback: (popup) => {
-          WA.nav.openTab(urlDBPlanet);
+          WA.nav.openTab(urlDBPlanetMaps);
           isCoWebSiteOpened = true;
           closePopUp();
         },
@@ -297,13 +303,14 @@ WA.room.onEnterZone("info_zone", () => {
         } else {
           WA.nav.openTab(WA.state.program_info);
         }
+        closePopUp();
       },
     },
     {
-      label: "Schließen",
-      className: "error",
+      label: WA.state.button_info2,
       callback: (popup) => {
-        closePopUp();
+          WA.nav.openTab(WA.state.teams_support_url);
+          closePopUp();
       },
     },
   ]);
