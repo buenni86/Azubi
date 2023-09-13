@@ -108,8 +108,11 @@ WA.room.onEnterZone("infoSaule_zone", () => {
       label: "alle Neuigkeiten",
       className: "primary",
       callback: (popup) => {
-        WA.nav.openTab(WA.state.infoURL);
-        isCoWebSiteOpened = true;
+        if (WA.state.info_iframe) {
+          WA.nav.openCoWebSite(WA.state.infoURL);
+        } else {
+          WA.nav.openTab(WA.state.infoURL);
+        }
         closePopUp();
       },
     },
