@@ -96,6 +96,28 @@ WA.room.onLeaveZone(zoneDBPlanet, () => {
   }
 });
 
+WA.room.onEnterZone("infoSaule_zone", () => {
+  currentPopup = WA.ui.openPopup("infoPopUp", WA.state.infoPopUp, [
+    {
+      label: "alle Neuigkeiten",
+      className: "primary",
+      callback: (popup) => {
+        WA.nav.openTab(WA.state.infoURL);
+        isCoWebSiteOpened = true;
+        closePopUp();
+      },
+    },
+  ]);
+});
+
+WA.room.onLeaveZone("infoSaule_zone", () => {
+  closePopUp();
+  if (isCoWebSiteOpened) {
+    WA.nav.closeCoWebSite();
+    isCoWebSiteOpened = false;
+  }
+});
+
 WA.room.onEnterZone("portal_program", () => {
   currentPopup = WA.ui.openPopup(
     "popUpPortal",
