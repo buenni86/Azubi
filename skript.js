@@ -1,4 +1,6 @@
-import {} from "https://unpkg.com/@workadventure/scripting-api-extra";
+import { bootstrapExtra } from "@workadventure/scripting-api-extra"
+//import {} from "https://unpkg.com/@workadventure/scripting-api-extra";
+bootstrapExtra();
 
 var currentPopup = undefined;
 var isCoWebSiteOpened = false;
@@ -149,6 +151,38 @@ WA.room.onEnterZone("portal_program", () => {
 });
 
 WA.room.onLeaveZone("portal_program", () => {
+  closePopUp();
+  if (isCoWebSiteOpened) {
+    WA.nav.closeCoWebSite();
+    isCoWebSiteOpened = false;
+  }
+});
+
+WA.room.onEnterZone("designer_zone", () => {
+  currentPopup = WA.ui.openPopup("designer_PopUp", "Architekten und Designer gesucht!\nDu hast Ideen für die Gestaltung der Umgebung oder möchtest dich im Designteam kreativ einbringen?", [
+    {
+      label: "Mail",
+      className: "primary",
+      callback: (popup) => {
+        WA.nav.openTab(WA.state.mail);
+        isCoWebSiteOpened = true;
+        closePopUp();
+        },
+      },
+      {
+        label: "Chat",
+        className: "primary",
+        callback: (popup) => {
+          WA.nav.openTab(WA.state.chat);
+          isCoWebSiteOpened = true;
+          closePopUp();
+        },
+      },
+    ]
+  );
+});
+
+WA.room.onLeaveZone("designer_zone", () => {
   closePopUp();
   if (isCoWebSiteOpened) {
     WA.nav.closeCoWebSite();
