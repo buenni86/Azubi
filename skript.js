@@ -13,9 +13,6 @@ function closePopUp() {
   }
 }
 
-var zoneNeedHelp = "needHelp";
-var zoneFeedback = "feedback";
-var zoneDBPlanet = "DBPlanet";
 var urlTutorial =
   "https://db-planet.deutschebahn.com/pages/telefonie/apps/content/workadventure-erste-schritte";
 var urlFeedback =
@@ -27,7 +24,7 @@ var urlDBPlanetMaps =
 var urlTestMap = 
   "https://play.workadventu.re/@/db-systel/basic/bahnhof_test";
 
-WA.room.onEnterZone(zoneNeedHelp, () => {
+WA.room.onEnterLayer("needHelpZone").subscribe(()  => {
   currentPopup = WA.ui.openPopup("needHelpPopup", "Tutorial\nansehen?", [
     {
       label: "OK",
@@ -41,7 +38,7 @@ WA.room.onEnterZone(zoneNeedHelp, () => {
   ]);
 });
 
-WA.room.onLeaveZone(zoneNeedHelp, () => {
+WA.room.onLeaveLayer("needHelpZone").subscribe(()  => {
   closePopUp();
   if (isCoWebSiteOpened) {
     WA.nav.closeCoWebSite();
@@ -49,7 +46,7 @@ WA.room.onLeaveZone(zoneNeedHelp, () => {
   }
 });
 
-WA.room.onEnterZone(zoneFeedback, () => {
+WA.room.onEnterLayer("feedbackZone").subscribe(() => {
   currentPopup = WA.ui.openPopup(
     "feedbackPopup",
     "Möchtest du ein Feedback geben?",
@@ -72,7 +69,7 @@ WA.room.onEnterZone(zoneFeedback, () => {
   );
 });
 
-WA.room.onLeaveZone(zoneFeedback, () => {
+WA.room.onLeaveLayer("feedbackZone").subscribe(() => {
   closePopUp();
   if (isCoWebSiteOpened) {
     WA.nav.closeCoWebSite();
@@ -80,29 +77,7 @@ WA.room.onLeaveZone(zoneFeedback, () => {
   }
 });
 
-WA.room.onEnterZone(zoneDBPlanet, () => {
-  currentPopup = WA.ui.openPopup("DBPlanetPopup", "DB Planet WorkAdventure", [
-    {
-      label: "OK",
-      className: "primary",
-      callback: (popup) => {
-        WA.nav.openTab(urlDBPlanet);
-        isCoWebSiteOpened = true;
-        closePopUp();
-      },
-    },
-  ]);
-});
-
-WA.room.onLeaveZone(zoneDBPlanet, () => {
-  closePopUp();
-  if (isCoWebSiteOpened) {
-    WA.nav.closeCoWebSite();
-    isCoWebSiteOpened = false;
-  }
-});
-
-WA.room.onEnterZone("infoSaule_zone", () => {
+WA.room.onEnterLayer("infoSaule_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("infoPopUp", WA.state.infoPopUp, [
     {
       label: "alle Neuigkeiten",
@@ -119,7 +94,7 @@ WA.room.onEnterZone("infoSaule_zone", () => {
   ]);
 });
 
-WA.room.onLeaveZone("infoSaule_zone", () => {
+WA.room.onLeaveLayer("infoSaule_zone").subscribe(() => {
   closePopUp();
   if (isCoWebSiteOpened) {
     WA.nav.closeCoWebSite();
@@ -127,7 +102,7 @@ WA.room.onLeaveZone("infoSaule_zone", () => {
   }
 });
 
-WA.room.onEnterZone("portal_program", () => {
+WA.room.onEnterLayer("portal_program").subscribe(() => {
   currentPopup = WA.ui.openPopup(
     "popUpPortal",
     "Du willst wissen was mit WorkAdventure alles möglich ist?\nBesuche unsere Testumgebung, in der verschiedene Funktionen eingebaut und viele Umgebungen miteinander verknüpft sind! Beispiele für bestehende Welten gibt es auf DB Planet, beim Design sind keine Grenzen gesetzt und alles ist möglich!",
@@ -153,7 +128,7 @@ WA.room.onEnterZone("portal_program", () => {
   );
 });
 
-WA.room.onLeaveZone("portal_program", () => {
+WA.room.onLeaveLayer("portal_program").subscribe(() => {
   closePopUp();
   if (isCoWebSiteOpened) {
     WA.nav.closeCoWebSite();
@@ -161,7 +136,7 @@ WA.room.onLeaveZone("portal_program", () => {
   }
 });
 
-WA.room.onEnterZone("designer_zone", () => {
+WA.room.area.onEnter("designer_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("designer_PopUp", "Architekten und Designer gesucht!\nDu hast Ideen für die Gestaltung der Umgebung oder möchtest dich im Designteam kreativ einbringen?", [
     {
       label: "Mail",
@@ -185,15 +160,13 @@ WA.room.onEnterZone("designer_zone", () => {
   );
 });
 
-WA.room.onLeaveZone("designer_zone", () => {
+WA.room.area.onLeave("designer_zone").subscribe(() => {
   closePopUp();
-  if (isCoWebSiteOpened) {
-    WA.nav.closeCoWebSite();
-    isCoWebSiteOpened = false;
-  }
 });
 
-WA.room.onEnterZone("reise1_zone", () => {
+/*
+
+WA.room.onEnterLayer("reise1_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("popUpReise1", WA.state.schalter1_popupText, [
     {
       label: WA.state.button_schalter1_1,
@@ -235,11 +208,11 @@ WA.room.onEnterZone("reise1_zone", () => {
   ]);
 });
 
-WA.room.onLeaveZone("reise1_zone", () => {
+WA.room.onLeaveLayer("reise1_zone").subscribe(() => {
   closePopUp();
 });
 
-WA.room.onEnterZone("reise2_zone", () => {
+WA.room.onEnterLayer("reise2_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("popUpReise2", WA.state.schalter2_popupText, [
     {
       label: WA.state.button_schalter2_1,
@@ -281,11 +254,11 @@ WA.room.onEnterZone("reise2_zone", () => {
   ]);
 });
 
-WA.room.onLeaveZone("reise2_zone", () => {
+WA.room.onLeaveLayer("reise2_zone").subscribe(() => {
   closePopUp();
 });
 
-WA.room.onEnterZone("reise3_zone", () => {
+WA.room.onEnterLayer("reise3_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("popUpReise3", WA.state.schalter3_popupText, [
     {
       label: WA.state.button_schalter3_1,
@@ -327,10 +300,13 @@ WA.room.onEnterZone("reise3_zone", () => {
   ]);
 });
 
-WA.room.onLeaveZone("reise3_zone", () => {
+WA.room.onLeaveLayer("reise3_zone").subscribe(() => {
   closePopUp();
 });
-WA.room.onEnterZone("info_zone", () => {
+
+*/
+
+WA.room.onEnterLayer("info_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("popUpInfo", WA.state.info_popupText, [
     {
       label: WA.state.button_info,
@@ -340,23 +316,28 @@ WA.room.onEnterZone("info_zone", () => {
         } else {
           WA.nav.openTab(WA.state.program_info);
         }
-        closePopUp();
       },
     },
     {
       label: WA.state.button_info2,
       callback: (popup) => {
           WA.nav.openTab(WA.state.teams_support_url);
+      },
+    },
+    {
+      label: "Schließen",
+      callback: (popup) => {
           closePopUp();
       },
     },
   ]);
 });
 
-WA.room.onLeaveZone("info_zone", () => {
+WA.room.onLeaveLayer("info_zone").subscribe(() => {
   closePopUp();
 });
-WA.room.onEnterZone("reiseSaule_zone", () => {
+
+WA.room.onEnterLayer("reiseSaule_zone").subscribe(() => {
   currentPopup = WA.ui.openPopup("popUpReiseSaule", WA.state.popUp_saeule, [
     {
       label: WA.state.button_saeule,
@@ -378,7 +359,7 @@ WA.room.onEnterZone("reiseSaule_zone", () => {
   ]);
 });
 
-WA.room.onLeaveZone("reiseSaule_zone", () => {
+WA.room.onLeaveLayer("reiseSaule_zone").subscribe(() => {
   closePopUp();
 });
 
