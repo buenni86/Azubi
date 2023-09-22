@@ -17,6 +17,10 @@ var urlTutorial =
   "https://db-planet.deutschebahn.com/pages/telefonie/apps/content/workadventure-erste-schritte";
 var urlFeedback =
   "https://forms.office.com/Pages/ResponsePage.aspx?id=nC2noeZJbU-a9lqvoRg7_SoZREurD2tJrJwSfyf3bX5UNEczWlNIRkJDNjNUUjZKODUyVE9aNjQ0Uy4u";
+
+
+var urlGastro =
+"https://db-planet.deutschebahn.com/pages/dbgastronomie/apps/content/inhalt";
 var urlDBPlanet =
   "https://db-planet.deutschebahn.com/pages/telefonie/apps/content/workadventure";
 var urlDBPlanetMaps = 
@@ -52,7 +56,7 @@ WA.room.onEnterLayer("feedbackZone").subscribe(() => {
     "Möchtest du ein Feedback geben?",
     [
       {
-        label: "Nein",
+        label: "Schließen",
         className: "secondary",
         callback: () => closePopUp(),
       },
@@ -60,9 +64,7 @@ WA.room.onEnterLayer("feedbackZone").subscribe(() => {
         label: "Gerne",
         className: "primary",
         callback: (popup) => {
-          WA.nav.openCoWebSite(urlFeedback);
-          isCoWebSiteOpened = true;
-          closePopUp();
+          WA.nav.openTap(urlGastro);
         },
       },
     ]
