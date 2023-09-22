@@ -61,7 +61,7 @@ WA.room.onEnterLayer("feedbackZone").subscribe(() => {
         callback: () => closePopUp(),
       },
       {
-        label: "Gerne",
+        label: "Speiseplan",
         className: "primary",
         callback: (popup) => {
           WA.nav.openTab(urlGastro);
