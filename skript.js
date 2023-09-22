@@ -53,7 +53,7 @@ WA.room.onLeaveLayer("needHelpZone").subscribe(()  => {
 WA.room.onEnterLayer("feedbackZone").subscribe(() => {
   currentPopup = WA.ui.openPopup(
     "feedbackPopup",
-    "Möchtest du ein Feedback geben?",
+    "Was gibt's heute zu essen?",
     [
       {
         label: "Schließen",
@@ -64,7 +64,7 @@ WA.room.onEnterLayer("feedbackZone").subscribe(() => {
         label: "Gerne",
         className: "primary",
         callback: (popup) => {
-          WA.nav.openTap(urlGastro);
+          WA.nav.openTab(urlGastro);
         },
       },
     ]
